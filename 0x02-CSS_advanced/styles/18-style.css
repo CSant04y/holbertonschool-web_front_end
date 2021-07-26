@@ -1,6 +1,4 @@
 /* CSS elements that manipulate html*/
-@import "normalize.css";
-
 :root {
     --color-primary: #d73953;
     --color-black: #090909;
@@ -38,6 +36,8 @@
     --nav-item-margin: 0 0 3rem 0;
     --nav-item-link-hover: var(--color-primary);
 }
+@import "normalize.css";
+
 
 *, *:before, *:after {
     box-sizing: border-box;
