@@ -1,6 +1,4 @@
 /* CSS elements that manipulate html*/
-@import "normalize.css";
-
 :root {
     --color-primary: #d73953;
     --color-black: #090909;
@@ -31,6 +29,8 @@
     --section-footer-align: center;
     --footer-padding: 5rem 0 1rem;
 }
+@import "normalize.css";
+
 
 *, *:before, *:after {
     box-sizing: border-box;
