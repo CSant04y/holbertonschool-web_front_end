@@ -198,7 +198,7 @@ a:active {
     background-color: var(--color-white);
     width: 0;
     height: 0.2rem;
-    transition: var(–transition-duration) var(transition-cubic-bezier);
+    transition: var(-–transition-duration) var(--transition-cubic-bezier);
 }
 
 .nav .nav-item:hover .nav-link::before {
@@ -323,7 +323,7 @@ ul.row {
 }
 
 .card-work .card-inner {
-    transition: var(–transition-duration) var(transition-cubic-bezier);
+    transition: var(-–transition-duration) var(--transition-cubic-bezier);
     position: absolute;
     top: -0.1rem;
     left: -0.1rem;
@@ -378,7 +378,7 @@ ul.row {
 
 .card-work:hover .card-image {
     transform: scale(1.2);
-    transition: var(–transition-duration) var(transition-cubic-bezier);
+    transition: var(-–transition-duration) var(--transition-cubic-bezier);
 }
 
 .card-work:hover .card-outer {
