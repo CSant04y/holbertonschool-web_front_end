@@ -1,7 +1,7 @@
 /*creates classes with diffrenent widths*/
 
 @for $itr from 1 through 4 {
-    .col#{$itr} {
+    .col-#{$itr} {
         width: 100% / $itr;
     }
 }
