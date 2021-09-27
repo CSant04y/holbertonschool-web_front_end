@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <title>Task 0</title>
+        <script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+        <script type="application/javascript">
+            $(function() {
+                /*Creates family tree table with first and lastname headers Also appeneds table body to table*/
+                function createFamilyTree() {
+                    $("body").append("<table><thead><tr><th>Firstname</th><th>Lastname</th></tr></thead></table>").find("table")
+                    .first().append("<tbody></tbody>")
+                }
+
+                function addNewMember(firstName, lastName, position) {
+                    /*This function adds a new member to the table by creating row and postion where*/
+                    let row = "<tr><td>" + firstName + "</td><td>" + lastName + "</td><td>(x)</td></tr>"
+
+                    if (position === "before") {
+                        $("body").find("tbody").first().prepend(row);
+                    }
+                    if (position !== "before") {
+                        $("body").find("tbody").first().append(row);
+                    }
+                    let element = null;
+                    if (position === "before"){
+                        element = $("tbody").find("tr").first();
+                    }
+                    if (position !== "before") {
+                        element = $("tbody").find("tr").last()
+                    }
+                    $("body").find("tbody").first().append(row);
+                    element = $("tbody").find("tr").last();
+                    element.find("td").click(function() {
+                        element.remove()
+                    });
+                    element.find("td").last().css("background-color", "orange");
+                }
+                    function createForm() {
+                        let input = '<input type="text"></input>';
+                        let select = '<select><option text="Before">Before</option><option text="After">After</option></select>';
+                        let submit = '<input type="submit"></input>';
+                        let form = input + input + select + submit;
+                        function getValue () {
+                            let first = $("input:nth-of-type(1)").val();
+                            let last = $("input:nth-of-type(2)").val();
+                            let position = $("option:selected").first().text();
+                            addNewMember(first, last, position);
+                        }
+                        $("table").first().before(form);
+                        $("body").find("input").last().click(getValue);
+                    }
+                createFamilyTree();
+                createForm();
+            });
+        </script>
+    </head>
+
+    <body>
+
+    </body>
+
+</html>
