@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Task 0</title>
+        <style>
+            .loading {
+                opacity: 0.2;
+            }
+        </style>
+        <script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script type="application/javascript">
+            $(function() {
+
+                function displayLoading(loading) {
+                    let ul = $("ul").first();
+                    if (loading === true) {
+                        ul.wrap('<div class="loading"></div>');
+                    } else if (loading === false){
+                        if (ul.parent().is("div")) {
+                            ul.unwrap();
+                        }
+                    }
+                }
+
+                let searchTerm = "";
+                function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
+                    $("#pagination").html("");
+                    let pageNumber = 1;
+                    let itr = 0;
+                    
+                    while (itr < numberOfItems) {
+                        let clickOffset = (pageNumber - 1) * itemsPerPage;
+                        let page = "<p>" + pageNumber + "</p>"
+    
+                        if (itr === currentOffset) {
+                            page = "<strong>" + pageNumber + "</strong>";
+                        }
+
+                        $("#pagination").append("<li>" + page + "</li>");
+                        console.log(page)
+                        $("#pagination li").last().css({
+                            "margin-left": "10px",
+                            "cursor": "pointer"
+                        })
+
+                        $("#pagination li").last().click(function() {
+                            queryWikipedia(searchTerm, clickOffset);
+                        });
+
+                        itr += itemsPerPage + itr;
+                        pageNumber += 1;
+                    }
+                }
+
+                function queryWikipedia(search, offset=0) {
+                    searchTerm = search;
+                    function parseResponse(response) {
+                        displayLoading(false);
+                        for (let item of response.query.search) {
+
+                            addNewArticle(item.pageid, item.title, item.snippet)
+                        }
+                        buildPagination(response.query.searchinfo.totalhits, 10, offset);
+                    }
+
+                    let url = "https://en.wikipedia.org/w/api.php?";
+                    let data = {
+                        "action": "query",
+                        "list": "search",
+                        "srsearch": search,
+                        "utf8": "",
+                        "format": "json",
+                        "origin": "*",
+                        "sroffset": offset,
+                    }
+
+                    $.ajax({
+                        url: url,
+                        data: data,
+                        crossDomain: true,
+                        success: parseResponse,
+                    })
+                    displayLoading(true);
+                }
+
+                function createSearchForm() {
+                    $("body").first().append('<input type="text"></input><input type="submit"></input><ul></ul><ul id="pagination" style="list-style-type: none; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between;"><li></li></ul>')
+                    $("input").last().click(function() {
+                        queryWikipedia($("input").first().val());
+                    });
+                }
+
+                function addNewArticle(id, title, snippet) {
+                    let listItem = "<li><p>" + id + " - <strong>" + title + "</strong></p>" + snippet + "</li>";
+                    $("ul").append(listItem);
+                }
+                createSearchForm();
+            });
+        </script>
+    </head>
+
+    <body>
+
+    </body>
+
+</html>
