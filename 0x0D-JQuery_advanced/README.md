@@ -42,3 +42,4 @@ $("img").before("Some text before");
 ****
 ### Learn how to modify elements?
 * you can modify elements **.replaceWith()** method to replace elements on screen.
+
