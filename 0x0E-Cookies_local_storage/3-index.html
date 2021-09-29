@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HOLBERTON</title>
+    </head>
+    <body>
+        <div id="form-contianer">
+            <h2>Login to the website</h2>
+            <input type="text" id="firstname">
+            <input type="text"  id="email">
+            <h1>Cookies</h1>
+            <button type="button" onclick="setCookies(); showWelcomeMessageOrForm();">Log me in</button>
+        </div>
+        <div>
+            <p style="display: none;" id="welcome">Welcome <span id="cookieName"></span><span id="logout" onclick="deleteCookiesAndShowForm();" style="font-weight: normal; font-style: italic; margin-left: 10px; cursor: pointer; background: yellow;">( Logout )</span></p>
+        </div>
+        <script>
+            function setCookies() {
+                let firstName = document.getElementById("firstname").value;
+                let email = document.getElementById("email").value;
+                let expir = new Date();
+
+                expir.setDate((new Date()).getDate() + 10);
+                console.log(expir.toUTCString());
+                document.cookie = "firstname=" + firstName + "; expires=" + expir.toUTCString();
+                document.cookie = "email=" + email + "; expires=" + expir.toUTCString();
+            }
+            function showCookies() {
+                /*Get cookie value*/
+                let cookie = document.cookie;
+                
+                let firstName = document.getElementById("firstname").value;
+                let email = document.getElementById("email").value;
+                let para = document.createElement("P");
+
+                para.appendChild(document.createTextNode(`Email: ${email} - Firstname: ${firstName}`));
+                document.body.appendChild(para);
+            }
+
+            function getCookie(name) {
+                let splitargs = document.cookie.split(";")
+
+                for (let itr of splitargs) {
+                    let keyValue = itr.split("=");
+                    
+                    if (keyValue[1] === name){
+                        console.log(keyValue[1])
+                        return keyValue[1];
+                    }
+                }
+            }
+
+            function showForm() {
+                let welcome = document.getElementById("welcome");
+                welcome.remove();
+                document.getElementById("form-contianer").style.display = "block";
+            }
+
+            function hideForm() {
+                document.getElementById("form-contianer").style.display = "none";
+            }
+            function deleteCookiesAndShowForm() {
+                let date = new Date();
+                date.setTime(Date.now() -(10*24*60*60*1000));
+
+                document.cookie = 'firstname=""; expires=' + date.toUTCString();
+                document.cookie = 'email=""; expires=' + date.toUTCString();
+                document.getElementById("welcome").style.display = "none";
+
+                showForm();
+            }
+            function showWelcomeMessageOrForm() {
+                if (getCookie("firstname") === " ") {
+                    showForm();
+                } else {
+                    hideForm();
+                }
+                document.getElementById("cookieName").innerHTML = getCookie("firstname");
+                document.getElementById("welcome").style.display = "block";
+            }
+        </script>
+    </body>
+
+</html>
