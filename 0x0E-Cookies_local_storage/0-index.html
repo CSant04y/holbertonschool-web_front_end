@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HOLBERTON</title>
+        <script>
+            function setCookies() {
+                let firstName = document.getElementById("firstname");
+                let email = document.getElementById("email");
+                document.cookie = "firstname=" + firstName + ";"
+                document.cookie = "email=" + email + ";";
+            }
+            function showCookies() {
+                /*Get cookie value*/
+                let cookie = document.cookie;
+                
+                let para = document.createElement("P");
+
+                para.appendChild(document.createTextNode("Cookies: " + cookie));
+                document.body.appendChild(para);
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Login to the website</h1>
+        <input type="text" id="firstname">
+        <input type="text"  id="email">
+        <h1>Cookies</h1>
+        <button type="button" onclick="setCookies()">Log me in</button>
+        <button type="button" onclick="showCookies()">Show the cookies</button>
+    </body>
+
+</html>
