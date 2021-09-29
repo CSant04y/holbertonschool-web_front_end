@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HOLBERTON</title>
+        <script>
+            function setCookies() {
+                let firstName = document.getElementById("firstname").value;
+                let email = document.getElementById("email").value;
+                let expir = new Date();
+
+                expir.setDate((new Date()).getDate() + 10);
+                console.log(expir.toUTCString());
+                document.cookie = "firstname=" + firstName + "; expires=" + expir.toUTCString();
+                document.cookie = "email=" + email + "; expires=" + expir.toUTCString();
+            }
+            function showCookies() {
+                /*Get cookie value*/
+                let cookie = document.cookie;
+                
+                let firstName = document.getElementById("firstname").value;
+                let email = document.getElementById("email").value;
+                let para = document.createElement("P");
+
+                para.appendChild(document.createTextNode(`Email: ${email} - Firstname: ${firstName}`));
+                document.body.appendChild(para);
+            }
+
+            function getCookie(name) {
+                let splitargs = document.cookie.split(";")
+
+                for (let itr of splitargs) {
+                    let keyValue = itr.split("=");
+                    
+                    if (keyValue[1] === name){
+                        return keyValue[1];
+                    }
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <h1>Login to the website</h1>
+        <input type="text" id="firstname">
+        <input type="text"  id="email">
+        <h1>Cookies</h1>
+        <button type="button" onclick="setCookies()">Log me in</button>
+        <button type="button" onclick="showCookies()">Show the cookies</button>
+    </body>
+
+</html>
