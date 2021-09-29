@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HOLBERTON</title>
+    </head>
+    <body>
+        <script>
+            let availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
+
+            if (typeof(Storage) === "undefined") {
+                alert("Sorry, your browser does not support Web storage. Try again with a better one");
+            }
+            function addItemToCart(item) {
+                localStorage[item] = true;
+                console.log(localStorage)
+            }
+
+            function createStore() {
+                let ul = document.createElement("ul");
+                let listItem = "";
+
+                availableItems.forEach(function(item) {
+                listItem += `<li onclick="addItemToCart('${item}');">${item}</li>`
+                })
+                ul.innerHTML = listItem;
+
+                document.body.append(ul);
+            }
+
+            function displayCart() {
+                let size = localStorage.length;
+                let para = document.createElement("p");
+                console.log(size)
+                para.innerHTML = `You previously had ${size} items in your cart`;
+                document.body.append(para);
+            }
+            createStore();
+            displayCart();            
+        </script>
+    </body>
+
+</html>
