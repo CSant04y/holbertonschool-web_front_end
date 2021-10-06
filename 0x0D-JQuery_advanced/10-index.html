@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Task 0</title>
+        <script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script type="application/javascript">
+            $(function start(){
+                /**
+                 * function takes in Data obj
+                 */
+                function addPostRow(data) {
+                    let para = document.createElement("P");
+                    para.append(`<span>Post created with id ${data.id}, title: ${data.title}, author: ${data.author}</span>`)
+                    document.body.append(para);
+                }
+
+                function listPosts() {
+                    
+                }
+            });
+        </script>
+    </head>
+
+    <body>
+
+    </body>
+
+</html>

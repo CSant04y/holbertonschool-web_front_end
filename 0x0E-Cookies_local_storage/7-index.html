@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HOLBERTON</title>
+    </head>
+    <body>
+        <script>
+            let availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
+
+            if (typeof(sessionStorage) === "undefined") {
+                alert("Sorry, your browser does not support Web storage. Try again with a better one");
+            }
+            function addItemToCart(item) {
+                sessionStorage[item] = true;
+                console.log(sessionStorage)
+            }
+            function getCartFromStorage() {
+                if (sessionStorage.cart !== undefined) {
+                    return JSON.parse(sessionStorage.cart);
+                } else {
+                    return new Object();
+                }
+            }
+
+            function addItemToCart(item) {
+                let cart = getCartFromStorage();
+
+                if (cart[item] !== undefined) {
+                    sessionStorage[item] += 1;
+                } else {
+                    cart[item] = 1;
+                }
+
+                sessionStorage[cart] = cart;
+                displayCart();
+            }
+
+            function removeItemfromCart(item) {
+                let cart = getCartFromStorage();
+
+                delete cart[item];
+                sessionStorage[cart] = cart;
+                displayCart();
+            }
+
+            function clearCart() {
+                sessionStorage.clear();
+                displayCart();
+            }
+
+            function createStore() {
+                let h2 = document.createElement("h2");
+                h2.innerHTML("Available products:");
+
+                let cart  = document.createElement("ul");
+                let listItem = "";
+
+                availableItems.forEach(function(item) {
+                listItem += `<li onclick="addItemToCart('${item}');">${item}</li>`;
+                })
+                ul.innerHTML = listItem;
+                document.body.append(ul);
+            }
+
+            function displayCart() {
+                let div = document.getElementsByName("div");
+
+                if (div === undefined) {
+                    let h2 = document.createElement("h2");
+                    h2.innerText("Your cart:");
+
+                    let divCart = document.createElement("div");
+                    document.body.append(divCart);
+                    divCart.append(h2);
+                } else {
+                    let element = document.getElementsByName("ul");
+
+                    while (element.firstChild) {
+                        element.removeChild(element.firstChild);
+                    }
+                }
+                updateCart();
+            }
+
+            function updateCart() {
+             // It should add a list to the div tag created previously
+                let cartDiv = document.getElementsByName("div")[0];
+                let cart = getCartFromStorage();
+                let cartList = document.createElement("ul");
+
+                if (cart.length === 0) {
+                    let empty = document.createElement("li");
+                    empty.innerText = "Your cart is empty";
+                    cartList.appendChild(empty);
+                } else {
+                    let clear = document.createElement("li");
+                    clear.innerText = "Clear my cart";
+                    clear.addEventListener("click", () => clearCart());
+                    cartList.appendChild(clear);
+
+                    Object.keys(cart).forEach( item => {
+                        let cartItem = document.createElement("li");
+                        let remove = document.createElement("p");
+                        remove.addEventListener("click", item => removeItemFromCart(item));
+                        remove.innerText = "(remove)";
+                        cartItem.innerText = `${item} x ${cart[item]} `;
+                        cartItem.appendChild(remove);
+                        cartList.appendChild(cartItem);
+                    });
+                cartDiv.append(cartList);
+            }
+            createStore();
+            displayCart();  
+              
+        </script>
+    </body>
+
+</html>
